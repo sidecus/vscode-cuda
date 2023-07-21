@@ -4,11 +4,6 @@ ARG CUDA_VERSION="11.3"
 ARG CUDNN_VERSION="8"
 ARG UBUNTU_VERSION="20.04"
 
-# Mirror ARGS
-ARG UBUNTU_MIRROR="mirrors.bfsu.edu.cn"
-ARG PIP_ARGS="-i https://mirrors.bfsu.edu.cn/pypi/web/simple/"
-
-
 #FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${UBUNTU_VERSION} AS cuda
 FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn${CUDNN_VERSION}-runtime
 
@@ -25,8 +20,8 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Copy library scripts to execute
+ARG UBUNTU_MIRROR="mirrors.bfsu.edu.cn"
 COPY ./library-scripts/*.sh ./library-scripts/*.env /tmp/library-scripts/
-
 RUN sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
     && sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
     && sed -i s/ports.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
@@ -44,6 +39,7 @@ RUN sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
 USER $USERNAME
 
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
+ARG PIP_ARGS="-i https://mirrors.bfsu.edu.cn/pypi/web/simple/"
 RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
     torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 \
     -f https://download.pytorch.org/whl/cu113/torch_stable.html
