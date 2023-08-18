@@ -44,7 +44,8 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
     torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 \
     -f https://download.pytorch.org/whl/cu113/torch_stable.html
 RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
-    torchaudio_augmentations\
-    jupyterlab jupyterlab-lsp python-lsp-server[all] \
     numpy pandas matplotlib scipy librosa soundfile \
-    IPython ipywidgets
+    IPython ipywidgets \
+    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all] \
+    torchaudio_augmentations\
+    transformers
