@@ -46,6 +46,9 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
 RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
     numpy pandas matplotlib scipy librosa soundfile \
     IPython ipywidgets \
-    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all] \
-    torchaudio_augmentations\
-    transformers
+    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all]
+
+# Install domain specific libraries, including huggingface & torchaduio etc.
+RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
+    torchaudio_augmentations \
+    transformers datasets
