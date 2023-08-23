@@ -51,4 +51,4 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
 # Install domain specific libraries, including huggingface & torchaduio etc.
 RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
     torchaudio_augmentations \
-    transformers datasets evaluate
+    transformers datasets evaluate transformers[torch]
