@@ -36,6 +36,11 @@ RUN sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/library-scripts
 
+# Create vscode share group, and add the vscode user to the group
+ARG VSC_SHARE_GID=1337
+RUN addgroup --gid $VSC_SHARE_GID vsc-share && \
+    addgroup vscode vsc-share
+
 # Switch user
 USER $USERNAME
 
