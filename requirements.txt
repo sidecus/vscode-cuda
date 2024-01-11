@@ -10,7 +10,7 @@
     torchvision
     torchaudio
     torchaudio_augmentations
-    transformers[torch]
+    # transformers[torch]
     transformers
     datasets
     evaluate
