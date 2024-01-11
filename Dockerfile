@@ -1,6 +1,6 @@
 # TORCH/CUDA args
-ARG TORCH_VERSION="1.11.0"
-ARG CUDA_VERSION="11.3"
+ARG TORCH_VERSION="2.1.2"
+ARG CUDA_VERSION="11.8"
 ARG CUDNN_VERSION="8"
 ARG UBUNTU_VERSION="20.04"
 
@@ -31,9 +31,10 @@ RUN sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
     && apt-get purge -y imagemagick imagemagick-6-common \
     # Install common packages, non-root user
     && bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
+    # Install setfacl and getfacl
+    && apt-get install acl \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/library-scripts
-
 
 # Switch user
 USER $USERNAME
@@ -41,14 +42,10 @@ USER $USERNAME
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
 ARG PIP_ARGS="-i https://mirrors.bfsu.edu.cn/pypi/web/simple/"
 RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
-    torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 \
-    -f https://download.pytorch.org/whl/cu113/torch_stable.html
-RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
+    torchvision torchaudio \
     numpy pandas matplotlib scipy librosa soundfile \
     IPython ipywidgets \
-    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all]
-
-# Install domain specific libraries, including huggingface & torchaduio etc.
-RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
+    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all] \
+    # Install domain specific libraries, including huggingface & torchaduio etc.
     torchaudio_augmentations \
     transformers datasets evaluate transformers[torch]
