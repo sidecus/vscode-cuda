@@ -41,11 +41,5 @@ USER $USERNAME
 
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
 ARG PIP_ARGS="-i https://mirrors.bfsu.edu.cn/pypi/web/simple/"
-RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS \
-    torchvision torchaudio \
-    numpy pandas matplotlib scipy librosa soundfile \
-    IPython ipywidgets \
-    jupyterlab jupyterhub jupyterlab-lsp python-lsp-server[all] \
-    # Install domain specific libraries, including huggingface & torchaduio etc.
-    torchaudio_augmentations \
-    transformers datasets evaluate transformers[torch]
+COPY requirements.txt /tmp/pip-tmp/
+RUN pip3 --disable-pip-version-check --no-cache-dir install $PIP_ARGS -r /tmp/pip-tmp/requirements.txt

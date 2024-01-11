@@ -1,0 +1,29 @@
+    numpy
+    pandas
+    matplotlib
+    codetiming
+    scipy
+    IPython
+    ipywidgets
+
+    # torch, huggingface etc.
+    torchvision
+    torchaudio
+    torchaudio_augmentations
+    transformers[torch]
+    transformers
+    datasets
+    evaluate
+    
+    # jupyter
+    jupyterlab
+    jupyterhub
+    jupyterlab-lsp
+    python-lsp-server[all]
+
+    # other libs
+    librosa
+    soundfile
+    jieba
+    wordcloud
+
