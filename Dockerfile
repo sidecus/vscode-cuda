@@ -35,10 +35,10 @@ RUN apt-get clean \
     && apt-get purge -y imagemagick imagemagick-6-common \
     # Install common packages, non-root user
     && bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/library-scripts \
     # Install setfacl and getfacl
-    && apt-get install acl
+    && apt-get install acl \
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/library-scripts
 
 # Create vscode share group, and add the vscode user to the group
 ARG VSC_SHARE_GID=1337
@@ -54,12 +54,6 @@ RUN test -n "${PYPI_MIRROR}" \
 
 # Switch user to vscode
 USER $USERNAME
-
-# Create virtual env
-ARG VIRTUAL_ENV=ailab
-RUN pip3 install virtualenv \
-    && virtualenv ${VIRTUAL_ENV} \
-    && source ${VIRTUAL_ENV}/bin/activate
 
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
 COPY requirements.txt /tmp/pip-tmp/
