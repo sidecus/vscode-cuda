@@ -8,5 +8,5 @@ if [ $retVal -ne 0 ]; then
     exit $retVal
 fi
 
-# docker tag sidecus/vscode-cuda:latest sidecus/vscode-cuda:torch2.1.2-cuda11.8-cudnn8
+docker tag sidecus/vscode-cuda:latest sidecus/vscode-cuda:en-torch2.1.2-cuda11.8-cudnn8
 docker push sidecus/vscode-cuda
