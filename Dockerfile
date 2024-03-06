@@ -11,11 +11,12 @@ ENV LANG="C.UTF-8"
 # Copy library scripts to execute
 #ARG UBUNTU_MIRROR="mirrors.bfsu.edu.cn"
 ARG UBUNTU_MIRROR=""
-RUN test -n "${UBUNTU_MIRROR}" \
-    && cp /etc/apt/sources.list /etc/apt/sources.list.bak \
-    && sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
-    && sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list \
-    && sed -i s/ports.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list
+RUN if [ -n "${UBUNTU_MIRROR}" ]; then \
+        cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
+        sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
+        sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
+        sed -i s/ports.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list; \
+    fi
 
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
@@ -46,9 +47,10 @@ RUN addgroup --gid $VSC_SHARE_GID vsc-share \
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
 #ARG PYPI_MIRROR="https://mirrors.bfsu.edu.cn/pypi/web/simple/"
 ARG PYPI_MIRROR=""
-RUN test -n "${PYPI_MIRROR}" \
-    && echo "[global]" > /etc/pip.conf \
-    && echo "index-url = ${PYPI_MIRROR}" >> /etc/pip.conf
+RUN if [ -n "${PYPI_MIRROR}" ]; then \
+        echo "[global]" > /etc/pip.conf && \
+        echo "index-url = ${PYPI_MIRROR}" >> /etc/pip.conf; \
+    fi
 
 # Switch user to vscode
 USER $USERNAME
