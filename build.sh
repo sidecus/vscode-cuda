@@ -23,11 +23,4 @@ docker build \
     --build-arg PYPI_MIRROR="$pypi_mirror" \
     .
 
-retVal=$?
-if [ $retVal -ne 0 ]; then
-    echo "Error occured building image."
-    exit $retVal
-fi
-
-echo Pushing image...
-docker push sidecus/vscode-cuda$tag
+echo Successfully built image: sidecus/vscode-cuda:$tag
