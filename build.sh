@@ -1,6 +1,27 @@
 #!/bin/bash
 
-docker build -t sidecus/vscode-cuda .
+torch=${1:-"2.2.1"}
+cuda=${2:-"11.8"}
+cudnn=${3:-"8"}
+
+ubuntu_mirror=${4:-""}
+pypi_mirror=${5:-""}
+
+if [[ -n $ubuntu_mirror ]]; then
+    prefix="cn-"
+fi
+
+tag=${prefix}torch${torch}-cuda${cuda}-cudnn${cudnn}
+echo Buliding image with tag: $tag
+
+docker build \
+    -t sidecus/vscode-cuda:$tag \
+    --build-arg TORCH_VERSION=$torch \
+    --build-arg CUDA_VERSION=$cuda \
+    --build-arg CUDNN_VERSION=$cudnn \
+    --build-arg UBUNTU_MIRROR="$ubuntu_mirror" \
+    --build-arg PYPI_MIRROR="$pypi_mirror" \
+    .
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -8,5 +29,5 @@ if [ $retVal -ne 0 ]; then
     exit $retVal
 fi
 
-docker tag sidecus/vscode-cuda:latest sidecus/vscode-cuda:en-torch2.1.2-cuda11.8-cudnn8
-docker push sidecus/vscode-cuda
+echo Pushing image...
+docker push sidecus/vscode-cuda$tag

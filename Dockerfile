@@ -2,9 +2,7 @@
 ARG TORCH_VERSION="2.1.2"
 ARG CUDA_VERSION="11.8"
 ARG CUDNN_VERSION="8"
-ARG UBUNTU_VERSION="20.04"
 
-#FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${UBUNTU_VERSION} AS cuda
 FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn${CUDNN_VERSION}-runtime
 
 ENV PATH="/usr/local/bin:$PATH"

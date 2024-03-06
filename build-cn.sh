@@ -1,12 +1,13 @@
 #!/bin/bash
 
-tag=cn-torch2.1.2-cuda11.8-cudnn8
+torch=${1:-"2.2.1"}
+cuda=${2:-"11.8"}
+cudnn=${3:-"8"}
 
-docker build \
-    -t sidecus/vscode-cuda:$tag \
-    --build-arg UBUNTU_MIRROR="mirrors.bfsu.edu.cn" \
-    --build-arg PYPI_MIRROR="https://mirrors.bfsu.edu.cn/pypi/web/simple/" \
-    .
+ubuntu_mirror="mirrors.bfsu.edu.cn"
+pypi_mirror="https://mirrors.bfsu.edu.cn/pypi/web/simple/"
+
+./build.sh $torch $cuda $cudnn $ubuntu_mirror $pypi_mirror
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
