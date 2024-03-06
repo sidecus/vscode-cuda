@@ -40,5 +40,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: sidecus/vscode-cuda:torch2.2.1-cuda11.8-cudnn8
-          build-args: TORCH_VERSION=2.2.1,CUDA_VERSION=11.8,CUDNN_VERSION=8
+          build-args: |
+            TORCH_VERSION=2.2.1
+            CUDA_VERSION=11.8
+            CUDNN_VERSION=8
           #labels: ${{ steps.meta.outputs.labels }}
