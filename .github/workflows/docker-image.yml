@@ -39,9 +39,24 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: sidecus/vscode-cuda:torch2.2.1-cuda11.8-cudnn8
+          tags: sidecus/vscode-cuda:torch${{ vars.TORCH_VERSION }}-cuda${{ vars.CUDA_VERSION }}-cudnn${{ vars.CUDNN_VERSION }}
           build-args: |
-            TORCH_VERSION=2.2.1
-            CUDA_VERSION=11.8
-            CUDNN_VERSION=8
-          #labels: ${{ steps.meta.outputs.labels }}
+            TORCH_VERSION=${{ vars.TORCH_VERSION }}
+            CUDA_VERSION=${{ vars.CUDA_VERSION }}
+            CUDNN_VERSION=${{ vars.CUDNN_VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: sidecus/vscode-cuda:cn-torch${{ vars.TORCH_VERSION }}-cuda${{ vars.CUDA_VERSION }}-cudnn${{ vars.CUDNN_VERSION }}
+          build-args: |
+            TORCH_VERSION=${{ vars.TORCH_VERSION }}
+            CUDA_VERSION=${{ vars.CUDA_VERSION }}
+            CUDNN_VERSION=${{ vars.CUDNN_VERSION }}
+            UBUNTU_MIRROR=${{ vars.UBUNTU_MIRROR }}
+            PYPI_MIRROR=${{ vars.PYPI_MIRROR }}
+          labels: ${{ steps.meta.outputs.labels }}

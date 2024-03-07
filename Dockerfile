@@ -8,16 +8,6 @@ FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn${CUDNN_VERSION}-
 ENV PATH="/usr/local/bin:$PATH"
 ENV LANG="C.UTF-8"
 
-# Copy library scripts to execute
-#ARG UBUNTU_MIRROR="mirrors.bfsu.edu.cn"
-ARG UBUNTU_MIRROR=""
-RUN if [[ -n "${UBUNTU_MIRROR}" ]]; then \
-        cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
-        sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
-        sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
-        sed -i s/ports.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list; \
-    fi
-
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
 # [Option] Upgrade OS packages to their latest versions
@@ -44,17 +34,32 @@ ARG VSC_SHARE_GID=1337
 RUN addgroup --gid $VSC_SHARE_GID vsc-share \
     && addgroup vscode vsc-share
 
-# Install large packages to avoid reinstalling everything upon each requirements.txt change
-#ARG PYPI_MIRROR="https://mirrors.bfsu.edu.cn/pypi/web/simple/"
-ARG PYPI_MIRROR=""
-RUN if [[ -n "${PYPI_MIRROR}" ]]; then \
-        echo "[global]" > /etc/pip.conf && \
-        echo "index-url = ${PYPI_MIRROR}" >> /etc/pip.conf; \
-    fi
-
 # Switch user to vscode
 USER $USERNAME
 
 # Install large packages to avoid reinstalling everything upon each requirements.txt change
 COPY requirements.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt
+
+# Below are special processing if image requires special mirrors
+
+USER root
+
+# Set Ubuntu apt source
+ARG UBUNTU_MIRROR=""
+RUN if [[ -n "${UBUNTU_MIRROR}" ]]; then \
+        cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
+        sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
+        sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
+        sed -i s/ports.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list; \
+    fi
+
+# Set PYPI mirror
+ARG PYPI_MIRROR=""
+RUN if [[ -n "${PYPI_MIRROR}" ]]; then \
+        echo "[global]" > /etc/pip.conf && \
+        echo "index-url = ${PYPI_MIRROR}" >> /etc/pip.conf; \
+    fi
+
+# Switch user back
+USER $USERNAME
