@@ -47,7 +47,7 @@ USER root
 
 # Set Ubuntu apt source
 ARG UBUNTU_MIRROR=""
-RUN if [[ -n "${UBUNTU_MIRROR}" ]]; then \
+RUN if [ -n "${UBUNTU_MIRROR}" ]; then \
         cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
         sed -i s/archive.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
         sed -i s/security.ubuntu.com/$UBUNTU_MIRROR/g /etc/apt/sources.list && \
@@ -56,7 +56,7 @@ RUN if [[ -n "${UBUNTU_MIRROR}" ]]; then \
 
 # Set PYPI mirror
 ARG PYPI_MIRROR=""
-RUN if [[ -n "${PYPI_MIRROR}" ]]; then \
+RUN if [ -n "${PYPI_MIRROR}" ]; then \
         echo "[global]" > /etc/pip.conf && \
         echo "index-url = ${PYPI_MIRROR}" >> /etc/pip.conf; \
     fi
