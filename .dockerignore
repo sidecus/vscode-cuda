@@ -1,2 +1,7 @@
 build.sh
 build-cn.sh
+
+.github
+.devcontainer
+.vscode
+.DS_Store

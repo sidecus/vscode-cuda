@@ -60,3 +60,17 @@ jobs:
             UBUNTU_MIRROR=${{ vars.UBUNTU_MIRROR }}
             PYPI_MIRROR=${{ vars.PYPI_MIRROR }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Pre-build dev container image
+        uses: devcontainers/ci@v0.3
+        env:
+          TORCH_VERSION: ${{ vars.TORCH_VERSION }}
+          CUDA_VERSION: ${{ vars.CUDA_VERSION }}
+          CUDNN_VERSION: ${{ vars.CUDNN_VERSION }}
+          UBUNTU_MIRROR: ${{ vars.UBUNTU_MIRROR }}
+          PYPI_MIRROR: ${{ vars.PYPI_MIRROR }}
+        with:
+          imageName: sidecus/vscode-cuda
+          imageTag: devcontainer-cn-torch${{ vars.TORCH_VERSION }}-cuda${{ vars.CUDA_VERSION }}-cudnn${{ vars.CUDNN_VERSION }}
+          cacheFrom: sidecus/vscode-cuda:devcontainer-cn-torch${{ vars.TORCH_VERSION }}-cuda${{ vars.CUDA_VERSION }}-cudnn${{ vars.CUDNN_VERSION }}
+          push: always

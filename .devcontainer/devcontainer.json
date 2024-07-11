@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "sidecus/vscode-cuda dev container",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "..",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../Dockerfile",
+		"args": {
+			"TORCH_VERSION": "${localEnv:TORCH_VERSION}",
+			"CUDA_VERSION":  "${localEnv:CUDA_VERSION}",
+			"CUDNN_VERSION": "${localEnv:CUDNN_VERSION}",
+			"UBUNTU_MIRROR": "${localEnv:UBUNTU_MIRROR}",
+			"PYPI_MIRROR":   "${localEnv:PYPI_MIRROR}"
+		}
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {}
+}
