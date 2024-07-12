@@ -1,18 +1,26 @@
 # Torch Dev Container for VSCode
 
-Torch dev container image with CUDA support.
+Pre-built Torch devcontainer image with CUDA support.
 
-## Docker image repo (pre-built dev container)
+## Usage
+
+See below devcontainer.json example:
+
+```JSON
+"name": "torchdevcontainer",
+"image": "sidecus/torch-devcontainer:2.2.1.8267797",
+"hostRequirements": {
+  "gpu": "optional"
+}
+```
+
+## Docker repo
 
 [Docker Hub](https://hub.docker.com/repository/docker/sidecus/torch-devcontainer/general)
 
 ```Shell
-docker pull sidecus/torch-devcontainer:2.2.1.9026e18
+docker pull sidecus/torch-devcontainer:2.2.1.8267797
 ```
-
-See below devcontainer.json example:
-
-![image](https://github.com/sidecus/vscode-cuda/assets/4399408/5f818621-335f-4ba9-9d00-b62d0ac676c9)
 
 ## Version Info
 
@@ -25,6 +33,6 @@ See below devcontainer.json example:
 ## What it does
 
 - Creates vscode user and group
-- Installs zsh and commonly used libs
-- Creates vsc-share group which can be used for data sharing among different dev container users
-- Installs commonly used Python libraries including numpy, torch, jupyter, etc.
+- Creates vscode-share group which can be used for data sharing among different dev container users
+- Installs zsh and other common packages
+- Installs common Python libraries including numpy, torch, jupyter, etc.
