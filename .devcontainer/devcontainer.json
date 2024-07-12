@@ -14,8 +14,20 @@
 			"UBUNTU_MIRROR": "${localEnv:UBUNTU_MIRROR}",
 			"PYPI_MIRROR":   "${localEnv:PYPI_MIRROR}"
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {}
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"username": "automatic", // picks up vscode
+			"userUid": "1000",
+			"userGid": "1000",
+			"installZsh": true,
+			"configureZshAsDefaultShell": true,
+			"installOhMyZsh": true,
+			"upgradePackages": true,
+			"nonFreePackages": false
+		},
+		"ghcr.io/devcontainers/features/git:1": {}
+	}
 }
