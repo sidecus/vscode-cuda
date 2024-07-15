@@ -48,7 +48,7 @@ jobs:
         with:
           imageName: sidecus/torch-devcontainer
           imageTag: ${{ vars.TORCH_VERSION }}.${{ steps.generate_sha.outputs.shortsha }}
-          cacheFrom: sidecus/torch-devcontainer:latest
+          cacheFrom: sidecus/torch-devcontainer:2.2.1.11607a5
           push: always
 
       - name: Pre-build dev container image (cn version)
@@ -64,5 +64,5 @@ jobs:
         with:
           imageName: sidecus/torch-devcontainer
           imageTag: cn.${{ vars.TORCH_VERSION }}.${{ steps.generate_sha.outputs.shortsha }}
-          cacheFrom: sidecus/torch-devcontainer:latest
+          cacheFrom: sidecus/torch-devcontainer:cn.2.2.1.11607a5
           push: always
