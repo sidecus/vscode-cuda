@@ -8,7 +8,7 @@ See below devcontainer.json example:
 
 ```JSON
 "name": "torchdevcontainer",
-"image": "sidecus/torch-devcontainer:2.2.1.8267797",
+"image": "sidecus/torch-devcontainer:2.2.1.11607a5",
 "hostRequirements": {
   "gpu": "optional"
 }
@@ -19,7 +19,7 @@ See below devcontainer.json example:
 [Docker Hub](https://hub.docker.com/repository/docker/sidecus/torch-devcontainer/general)
 
 ```Shell
-docker pull sidecus/torch-devcontainer:2.2.1.8267797
+docker pull sidecus/torch-devcontainer:2.2.1.11607a5
 ```
 
 ## Version Info
