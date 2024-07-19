@@ -10,14 +10,14 @@ ENV LANG="C.UTF-8"
 # Install common packages
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get install -y acl htop curl wget zip unzip less nano jq sudo \
+    && apt-get install -y acl htop curl wget zip unzip less nano jq sudo build-essential \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Create vscode user, user group and share group, and add the vscode user to the group
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ARG TEAMNAME=vsccode-share
+ARG TEAMNAME=vscode-share
 ARG TEAM_GID=1337
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
