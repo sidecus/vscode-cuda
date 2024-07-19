@@ -14,13 +14,15 @@ See below devcontainer.json example:
 }
 ```
 
-## Docker repo
+## Repositories
 
 [Docker Hub](https://hub.docker.com/repository/docker/sidecus/torch-devcontainer/general)
 
 ```Shell
 docker pull sidecus/torch-devcontainer:2.2.1.11607a5
 ```
+
+[GitHub](https://github.com/sidecus/vscode-cuda)
 
 ## Version Info
 
