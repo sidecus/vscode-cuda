@@ -17,7 +17,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ARG TEAMNAME=vsccode-share
+ARG TEAMNAME=vscode-share
 ARG TEAM_GID=1337
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
