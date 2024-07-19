@@ -10,7 +10,7 @@ ENV LANG="C.UTF-8"
 # Install common packages
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get install -y acl htop curl wget zip unzip less nano jq sudo \
+    && apt-get install -y acl htop curl wget zip unzip less nano jq sudo build-essential \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Create vscode user, user group and share group, and add the vscode user to the group
