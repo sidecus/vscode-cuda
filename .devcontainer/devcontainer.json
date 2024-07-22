@@ -19,7 +19,7 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
-			"username": "automatic", // picks up vscode
+			"username": "vscode",
 			"userUid": "1000",
 			"userGid": "1000",
 			"installZsh": true,
@@ -28,6 +28,10 @@
 			"upgradePackages": true,
 			"nonFreePackages": false
 		},
-		"ghcr.io/devcontainers/features/git:1": {}
+		"ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/sidecus/devcontainer-features/magicmirror:1": {
+            "pypi_mirror": "${localEnv:PYPI_MIRROR}",
+            "ubuntu_mirror": "${localEnv:UBUNTU_MIRROR}"
+        }
 	}
 }

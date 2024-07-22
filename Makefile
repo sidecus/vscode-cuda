@@ -6,16 +6,16 @@ COMMIT_ID := $(shell git log -1 --pretty=%h)
 TORCH := 2.2.1
 TAG := ${TORCH}.${COMMIT_ID}
 
-.PHONY: env envcn build buildcn
+.PHONY: build buildcn
 
-build: env
+build:
 	export TORCH_VERSION=${TORCH} \
 	&& export CUDA_VERSION=11.8 \
 	&& export CUDNN_VERSION=8 \
 	&& devcontainer build --workspace-folder . --image-name ${NAMESPACE}/${NAME}:${TAG}
 
 buildcn: TAG = cn.${TORCH}.${COMMIT_ID}
-buildcn: envcn build
+buildcn:
 	export TORCH_VERSION=${TORCH} \
 	&& export CUDA_VERSION=11.8 \
 	&& export CUDNN_VERSION=8 \
