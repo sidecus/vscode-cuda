@@ -48,10 +48,10 @@ jobs:
         with:
           imageName: sidecus/torch-devcontainer
           imageTag: ${{ vars.TORCH_VERSION }}.${{ steps.generate_sha.outputs.shortsha }}
-          cacheFrom: sidecus/torch-devcontainer:2.2.1.11607a5
+          cacheFrom: sidecus/torch-devcontainer:2.2.1.07e5e3b
           push: always
 
-      - name: Pre-build dev container image (cn version)
+      - name: Pre-build dev container image (with cn mirrors)
         uses: devcontainers/ci@v0.3
         # use env to pass build args to devcontainer ci extension
         # this will be picked up by the ci when processing devcontainer.json
@@ -64,5 +64,5 @@ jobs:
         with:
           imageName: sidecus/torch-devcontainer
           imageTag: cn.${{ vars.TORCH_VERSION }}.${{ steps.generate_sha.outputs.shortsha }}
-          cacheFrom: sidecus/torch-devcontainer:cn.2.2.1.11607a5
+          cacheFrom: sidecus/torch-devcontainer:2.2.1.07e5e3b
           push: always
